@@ -92,7 +92,13 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-bootJar {
+configurations {
+    configureEach {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
+}
+
+bootJar{
     archivesBaseName = 'linknamu'
     archiveFileName = 'linknamu.jar'
     archiveVersion = "0.0.1"
