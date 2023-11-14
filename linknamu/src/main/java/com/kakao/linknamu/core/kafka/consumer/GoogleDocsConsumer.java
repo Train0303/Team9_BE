@@ -17,7 +17,6 @@ import com.kakao.linknamu.thirdparty.googledocs.util.GoogleDocsProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class GoogleDocsConsumer {
@@ -28,7 +27,6 @@ public class GoogleDocsConsumer {
 	@KafkaListener(topics = {GOOGLE_DOCS_TOPIC}, groupId = "group-id-linknamu")
 	public void googleDocsConsumer(String message) throws JsonProcessingException {
 		GooglePage googlePage = om.readValue(message, GooglePage.class);
-		log.error("GOOGLE: " + googlePage.getPageName() + ", " + googlePage.getDocumentId());
 		List<Bookmark> bookmarkList = googleDocsProvider.getLinks(googlePage);
 		bookmarkService.batchInsertBookmark(bookmarkList);
 	}
