@@ -22,6 +22,7 @@ import com.kakao.linknamu.workspace.entity.constant.LinkProvider;
 import com.kakao.linknamu.workspace.service.WorkspaceService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -29,6 +30,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -99,7 +101,8 @@ public class GoogleDocsApiService {
 				GOOGLE_DOCS_TOPIC,
 				message
 			);
-		} catch (JsonProcessingException ignored) {
+		} catch (JsonProcessingException e) {
+			log.error(e.getMessage());
 		}
 
 	}
